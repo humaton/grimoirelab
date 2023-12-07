@@ -5,5 +5,8 @@
           "https://pagure.io/releng/fedora-scm-requests",
           "https://pagure.io/releng/"
       ]
+     "hyperkitty": [
+            "https://lists.fedoraproject.org/archives/list/rel-eng@lists.fedoraproject.org/"
+        ]
   }
 }
