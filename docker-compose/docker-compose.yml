@@ -17,6 +17,8 @@ services:
       environment:
         - MYSQL_ROOT_PASSWORD=
         - MYSQL_ALLOW_EMPTY_PASSWORD=yes
+      volumes:
+        -  /kontajnery/grimoirelab/mysql:/var/lib/mysql
       healthcheck:
         test: [ "CMD", "/usr/local/bin/healthcheck.sh", "--su=root", "--connect", "--innodb_initialized" ]
         retries: 5
@@ -29,6 +31,8 @@ services:
           ipv4_address: 10.1.60.42
       expose:
         - "6379"
+      volumes:
+        -  /kontajnery/grimoirelab/redis:/data
       healthcheck:
         test: [ "CMD", "redis-cli", "--raw", "incr", "ping" ]
         retries: 5
@@ -70,8 +74,8 @@ services:
         vlan666:
           ipv4_address: 10.1.60.45
       volumes:
-        - ../default-grimoirelab-settings/setup.cfg:/home/grimoire/conf/setup.cfg
-        - ../default-grimoirelab-settings/projects.json:/home/grimoire/conf/projects.json
+        - /kontajnery/grimoirelab/grimoirelab/default-grimoirelab-settings/setup.cfg:/home/grimoire/conf/setup.cfg
+        - /kontajnery/grimoirelab/grimoirelab/default-grimoirelab-settings/projects.json:/home/grimoire/conf/projects.json
         - /tmp/:/home/grimoire/logs
       depends_on:
         nginx:
@@ -101,7 +105,7 @@ services:
       expose:
         - "9314"
       volumes:
-        - sortinghat-static:/opt/venv/lib/python3.9/site-packages/sortinghat/static/
+        - /kontajnery/grimoirelab/opt/:/opt/venv/lib/python3.9/site-packages/sortinghat/static/
       depends_on:
         mariadb:
           condition: service_healthy
@@ -137,8 +141,8 @@ services:
         vlan666:
           ipv4_address: 10.1.60.40
       volumes:
-        - ../default-grimoirelab-settings/nginx.conf.template:/etc/nginx/templates/default.conf.template
-        - ../default-grimoirelab-settings/uwsgi_params:/etc/nginx/uwsgi_params
+        -  /kontajnery/grimoirelab/grimoirelab/default-grimoirelab-settings/nginx.conf.template:/etc/nginx/templates/default.conf.template
+        -  /kontajnery/grimoirelab/grimoirelab/default-grimoirelab-settings/uwsgi_params:/etc/nginx/uwsgi_params
         - sortinghat-static:/sortinghat:ro
       ports:
         - 8000:8000
