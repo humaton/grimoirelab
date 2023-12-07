@@ -1,8 +1,9 @@
 {
-  "Chaoss": {
+  "Fedora Release Engineering OPS": {
       "pagure": [
           "https://pagure.io/releng/failed-composes",
-          "https://pagure.io/releng/fedora-scm-requests"
+          "https://pagure.io/releng/fedora-scm-requests",
+          "https://pagure.io/releng/"
       ]
   }
 }
